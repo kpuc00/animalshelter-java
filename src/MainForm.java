@@ -2,8 +2,7 @@ import Animals.Animal;
 import Animals.Gender;
 
 import javax.swing.*;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
+import java.awt.*;
 
 public class MainForm
 {
@@ -15,8 +14,9 @@ public class MainForm
     private JList lbxAnimals;
     private JTextField tbxReserveName;
     private JButton btnReserve;
-    private JPanel panel1;
+    private JPanel panel;
     private JTextField tbxName;
+    private Dialog dialog;
 
     public MainForm()
     {
@@ -25,12 +25,8 @@ public class MainForm
 
         btnAddAnimal.addActionListener(actionEvent -> addAnimal());
         btnReserve.addActionListener(actionEvent -> reserveAnimal());
-        lbxAnimals.addListSelectionListener(new ListSelectionListener() {
-            @Override
-            public void valueChanged(ListSelectionEvent listSelectionEvent) {
-                btnReserve.setEnabled(lbxAnimals.getSelectedValue() != null);
-            }
-        });
+        cbSpecies.addActionListener(actionEvent -> toggleBadHabits());
+        lbxAnimals.addListSelectionListener(listSelectionEvent -> toggleReserve());
     }
 
     private Reservation reservations = new Reservation();
@@ -38,9 +34,10 @@ public class MainForm
     public static void main(String[] args)
     {
         JFrame frame = new JFrame("Animal Shelter");
-        frame.setContentPane(new MainForm().panel1);
+        frame.setContentPane(new MainForm().panel);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
+        frame.setLocationRelativeTo(null);
         frame.setVisible(true);
     }
 
@@ -55,13 +52,33 @@ public class MainForm
         }
     }
 
+    private void toggleBadHabits()
+    {
+        if (this.cbSpecies.getSelectedItem().toString() == "Dog")
+            tbxBadHabits.setEnabled(false);
+        else
+            tbxBadHabits.setEnabled(true);
+    }
+
+    private void toggleReserve()
+    {
+        tbxReserveName.setEnabled(lbxAnimals.getSelectedValue() != null);
+        btnReserve.setEnabled(lbxAnimals.getSelectedValue() != null);
+    }
+
     private void addAnimal()
     {
         Gender gender = rbMale.isSelected() ? Gender.Male : Gender.Female;
 
+        if (tbxName.getText().isEmpty())
+            JOptionPane.showMessageDialog(panel, "Please enter your name!");
+
+        else
         if (this.cbSpecies.getSelectedItem().toString() == "Cat")
         {
-            this.reservations.NewCat(tbxName.getText(), gender, tbxBadHabits.getText());
+            String badHabits = tbxBadHabits.getText();
+            if (badHabits.isEmpty()) badHabits = "No";
+            this.reservations.NewCat(tbxName.getText(), gender, badHabits);
         }
         else if (this.cbSpecies.getSelectedItem().toString() == "Dog")
         {
@@ -73,6 +90,10 @@ public class MainForm
     private void reserveAnimal()
     {
         Animal animal = (Animal) lbxAnimals.getSelectedValue();
+        if (tbxReserveName.getText().isEmpty())
+            JOptionPane.showMessageDialog(panel, "Please enter your name!");
+
+        else
         if (animal != null)
         {
             animal.Reserve(tbxReserveName.getText());

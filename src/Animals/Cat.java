@@ -15,6 +15,6 @@ public class Cat extends Animal{
 
     @Override
     public String toString() {
-        return super.toString() + ", bad habits: " + this.getBadHabits().toLowerCase();
+        return super.toString() + ", Bad habits: " + this.getBadHabits().toLowerCase();
     }
 }
