@@ -35,15 +35,6 @@ public abstract class Animal {
         return false;
     }
 
-/*    @Override
-    public String toString() {
-        return "Animal{" +
-                "name='" + name + '\'' +
-                ", gender=" + gender +
-                ", reservedBy=" + reservedBy +
-                '}';
-    }*/
-
     @Override
     public String toString()
     {

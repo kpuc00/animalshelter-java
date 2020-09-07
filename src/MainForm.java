@@ -1,8 +1,9 @@
 import Animals.Animal;
+import Animals.Gender;
 
 import javax.swing.*;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 public class MainForm
 {
@@ -15,17 +16,19 @@ public class MainForm
     private JTextField tbxReserveName;
     private JButton btnReserve;
     private JPanel panel1;
-    private JTextField tbName;
+    private JTextField tbxName;
 
     public MainForm()
     {
         cbSpecies.addItem("Cat");
         cbSpecies.addItem("Dog");
 
-        btnAddAnimal.addMouseListener(new MouseAdapter() {
+        btnAddAnimal.addActionListener(actionEvent -> addAnimal());
+        btnReserve.addActionListener(actionEvent -> reserveAnimal());
+        lbxAnimals.addListSelectionListener(new ListSelectionListener() {
             @Override
-            public void mouseClicked(MouseEvent e) {
-                super.mouseClicked(e);
+            public void valueChanged(ListSelectionEvent listSelectionEvent) {
+                btnReserve.setEnabled(lbxAnimals.getSelectedValue() != null);
             }
         });
     }
@@ -41,55 +44,39 @@ public class MainForm
         frame.setVisible(true);
     }
 
-    /*private void cmbSpecies_SelectedIndexChanged(object sender, EventArgs e)
-    {
-        this.txtBadHabits.Enabled = this.cmbSpecies.Text == "Cat";
-    }*/
-
     private void refreshControls()
     {
         lbxAnimals.removeAll();
         DefaultListModel lbAnimals = new DefaultListModel();
+        lbxAnimals.setModel(lbAnimals);
         for ( Animal animal : reservations.getAnimals())
         {
             lbAnimals.addElement(animal);
         }
-
-        lbxAnimals = new JList(lbAnimals);
-
-        //btnReserveAnimal.Enabled = lstAnimals.SelectedItem != null;
     }
 
-    /*private void btnAddAnimal_Click(object sender, EventArgs e)
+    private void addAnimal()
     {
-        Gender gender = radMale.Checked ? Gender.Male : Gender.Female;
+        Gender gender = rbMale.isSelected() ? Gender.Male : Gender.Female;
 
-        if (this.cmbSpecies.Text == "Cat")
+        if (this.cbSpecies.getSelectedItem().toString() == "Cat")
         {
-            this.reservations.NewCat(
-                    txtName.Text, gender, txtBadHabits.Text);
+            this.reservations.NewCat(tbxName.getText(), gender, tbxBadHabits.getText());
         }
-        else if (this.cmbSpecies.Text == "Dog")
+        else if (this.cbSpecies.getSelectedItem().toString() == "Dog")
         {
-            this.reservations.NewDog(txtName.Text, gender);
+            this.reservations.NewDog(tbxName.getText(), gender);
         }
+        this.refreshControls();
+    }
 
-        this.RefreshControls();
-    }*/
-
-    /*private void btnReserveAnimal_Click(object sender, EventArgs e)
+    private void reserveAnimal()
     {
-        Animal animal = lstAnimals.SelectedItem as Animal;
-
+        Animal animal = (Animal) lbxAnimals.getSelectedValue();
         if (animal != null)
         {
-            animal.Reserve(txtReservor.Text);
-            this.RefreshControls();
+            animal.Reserve(tbxReserveName.getText());
+            this.refreshControls();
         }
-    }*/
-
-    /*private void lstAnimals_SelectedIndexChanged(object sender, EventArgs e)
-    {
-        btnReserveAnimal.Enabled = lstAnimals.SelectedItem != null;
-    }*/
+    }
 }

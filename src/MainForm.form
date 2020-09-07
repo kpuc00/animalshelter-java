@@ -129,10 +129,11 @@
           <grid row="5" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
+          <enabled value="false"/>
           <text value="Reserve selected animal"/>
         </properties>
       </component>
-      <component id="b310d" class="javax.swing.JTextField" binding="tbName">
+      <component id="b310d" class="javax.swing.JTextField" binding="tbxName">
         <constraints>
           <grid row="3" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
             <preferred-size width="150" height="-1"/>
@@ -142,4 +143,10 @@
       </component>
     </children>
   </grid>
+  <buttonGroups>
+    <group name="buttonGroupGender">
+      <member id="40aec"/>
+      <member id="844ea"/>
+    </group>
+  </buttonGroups>
 </form>
