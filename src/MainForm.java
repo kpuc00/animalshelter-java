@@ -1,5 +1,6 @@
 import Animals.Animal;
 import Animals.Gender;
+import Shelter.Reservation;
 
 import javax.swing.*;
 import java.awt.*;

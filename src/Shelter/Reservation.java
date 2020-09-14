@@ -1,3 +1,5 @@
+package Shelter;
+
 import Animals.Animal;
 import Animals.Cat;
 import Animals.Dog;

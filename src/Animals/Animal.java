@@ -2,7 +2,7 @@ package Animals;
 
 import java.time.LocalDate;
 
-public abstract class Animal {
+public /*abstract*/ class Animal {
     private String name;
     private Gender gender;
     private Reservor reservedBy;

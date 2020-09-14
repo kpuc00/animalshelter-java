@@ -8,12 +8,12 @@ import java.time.format.FormatStyle;
 public class Dog extends Animal{
     private LocalDate lastWalk;
 
-    public LocalDate GetLastWalk(){
+    public LocalDate getLastWalk(){
         return this.lastWalk;
     }
 
     public boolean NeedsWalk(){
-        Period period = Period.between(LocalDate.now(), this.GetLastWalk());
+        Period period = Period.between(LocalDate.now(), this.getLastWalk());
         int diff = period.getDays();
         return diff > 0;
     }
@@ -27,6 +27,6 @@ public class Dog extends Animal{
     @Override
     public String toString()
     {
-        return super.toString() + ", last walk: " + this.GetLastWalk().format(DateTimeFormatter.ofLocalizedDate(FormatStyle.LONG));
+        return super.toString() + ", last walk: " + this.getLastWalk().format(DateTimeFormatter.ofLocalizedDate(FormatStyle.LONG));
     }
 }
