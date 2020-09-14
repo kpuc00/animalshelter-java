@@ -44,6 +44,9 @@ public class MainForm
 
     private void refreshControls()
     {
+        tbxName.setText(null);
+        tbxBadHabits.setText(null);
+        tbxReserveName.setText(null);
         lbxAnimals.removeAll();
         DefaultListModel lbAnimals = new DefaultListModel();
         lbxAnimals.setModel(lbAnimals);
